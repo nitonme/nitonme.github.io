@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=1.0">
+    <title>NitonBots</title>
+    <style media="screen">
+      html, body {
+        font-family: sans-serif;
+        text-align: center;
+      }
+      code {
+        border: 1px solid #9c9c9c;
+        border-radius: 5px;
+        display: inline-block;
+        padding: 35px;
+        margin-top: 6px;
+      }
+      span.small {
+        font-size: 13px;
+        font-family: sans-serif;
+      }
+      h1 {
+        padding: 0;
+        margin: 0;
+      }
+      textarea {
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>nitonbots</h1>
+    <span class="small">a Coinbase(d) trading bot.</span><br><br>
+    Install Niton LTC - (<a href="/nitonltc">download installer</a>) <br>
+    <code>
+      Navigate to the installer and run these commands:<br>
+      <textarea onclick="copyCommand()" id="command" rows="2" cols="35">
+sudo chmod u+x nitonltc
+sudo ./nitonltc install</textarea>
+
+    </code>
+    <br>
+    <span class="small">Installers and programs written by <a href="//niton.me">niton</a></span>
+    <br>
+    <br>
+  <!--
+   Install Niton BTC - (<a href="/nitonbtc">download installer</a>) <br>
+    <code>
+      Navigate to the installer and run these commands:<br>
+      sudo chmod u+x nitonbtc<br>
+      sudo ./nitonbtc install
+    </code>
+
+
+    -->
+    <script>
+      function copyCommand() {
+        var copyText = document.getElementById("command");
+        copyText.select();
+        copyText.setSelectionRange(0, 99999)
+        document.execCommand("copy");
+        alert("commands copied!");
+      }
+    </script>
+  </body>
+</html>
