@@ -10,3 +10,5 @@ fi
 #sudo apt install asbru-cm
 
 echo "Hello World."
+sudo apt-get update -y
+sudo apt-get upgrade -y
