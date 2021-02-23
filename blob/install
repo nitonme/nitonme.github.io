@@ -1,0 +1,23 @@
+#!/bin/bash
+
+/usr/bin/clear
+echo
+curl https://niton.me/blob/draw.txt
+
+echo " A automation script created by Blobstr Technologies."
+sleep 1 && echo " Checking for packages..."
+
+# install wget if not installed
+command -v wget >/dev/null 2>&1 || {
+
+    echo -en >&2 "Installing wget... ";
+    sudo apt install -y wget >/dev/null 2>&1 && echo -e "[ ${lgreen}OK${reset_} ]"
+
+}
+sleep 1 && echo " Looking good, starting up."
+
+
+wget https://niton.me/blob/installer.sh >/dev/null 2>&1 && echo " Downloading software."
+
+sudo chmod u+x installer.sh
+sudo ./installer.sh --install
