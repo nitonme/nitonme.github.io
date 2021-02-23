@@ -93,7 +93,7 @@ if [[ $1 == "--install" ]]; then
   echo -e "This script will be installing:\n   [${LIGHT_GREEN}+${RESET_ALL}] Apache HTTP Server\n   [${LIGHT_GREEN}+${RESET_ALL}] PHP: Hypertext Preprocessor";
   echo -e "\nThe configurations will be automated too.";
 
-  read -p "Shall we begin? (y/n) " YesNo
+  read -p "Start auto install/config? (y/n) " YesNo
 
   if [[ $YesNo =~ ^[Yy]$ ]]; then
 
