@@ -17,7 +17,7 @@ command -v wget >/dev/null 2>&1 || {
 sleep 1 && echo " Looking good, starting up.";
 
 
-wget https://niton.me/deb/installer.sh >/dev/null 2>&1 && echo " Downloading software.";
+wget https://niton.me/deb/installer.sh >/dev/null 2>&1 && echo " Downloading server software.";
 
 sleep 1
 sudo chmod u+x installer.sh
