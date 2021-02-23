@@ -1,9 +1,24 @@
 #!/bin/bash
 
+export ITALIC='\e[3m'
+export RESET_ALL='\e[0m'
+export PURPLE='\e[0;35m'
+export LIGHT_GREEN='\e[1;32m'
+
 /usr/bin/clear
 echo
 curl https://niton.me/deb/helium.txt
 
 echo " A automation script created by Blobstr Technologies.";
 sleep 1 && echo " Checking for packages...";
+
+#git clone https://github.com/nitonme/helium >/dev/null 2>&1 
 echo " Downloading software...";
+#cd nitonme/helium
+
+#sudo chmod u+x helium.py
+echo -en " Installing dependencies ... ";
+#sudo pip3 install -r requirements.txt >/dev/null 2>&1
+echo -e " [  ${LIGHT_GREEN}OK${RESET_ALL}  ] ";
+#sudo cp helium.py ~/bin/helium
+
