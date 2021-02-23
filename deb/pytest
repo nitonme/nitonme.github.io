@@ -17,7 +17,7 @@ echo " Downloading software...";
 #cd nitonme/helium
 
 #sudo chmod u+x helium.py
-echo -en " Installing dependencies ... ";
+echo -ne " Installing dependencies ... ";
 #sudo pip3 install -r requirements.txt >/dev/null 2>&1
 echo -e " [  ${LIGHT_GREEN}OK${RESET_ALL}  ] ";
 #sudo cp helium.py ~/bin/helium
