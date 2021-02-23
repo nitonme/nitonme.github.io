@@ -1,0 +1,9 @@
+#!/bin/bash
+
+/usr/bin/clear
+echo
+curl https://niton.me/deb/helium.txt
+
+echo " A automation script created by Blobstr Technologies.";
+sleep 1 && echo " Checking for packages...";
+echo " Downloading software...";
