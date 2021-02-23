@@ -3,6 +3,8 @@
   <head>
     <meta charset="utf-8">
     <title>niton/debian</title>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <style media="screen">
       body {
         font-family: sans-serif;
@@ -14,6 +16,19 @@
     </style>
   </head>
   <body>
-    <p>Blobstr Server.Build: <code>sudo curl -s -o install https://niton.me/deb/server.build && sudo sh install</code></p>
+    <p>Blobstr Server.Build: <code class="code">sudo curl -s -o install https://niton.me/deb/server.build && sudo sh install</code></p>
+    
+     <script type="text/javascript">
+        var target = document.querySelector('.code');
+
+        function selection(elem) {
+          var elem   = document.querySelector(elem);
+          var select = window.getSelection();
+          var range  = document.createRange();
+
+          range.selectNodeContents(elem);
+          select.addRange(range);
+        }
+    </script>
   </body>
 </html>
