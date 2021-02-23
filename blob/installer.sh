@@ -98,7 +98,9 @@ install_database() {
 }
 
 if [[ $1 == "--install" ]]; then
-  echo "";
+  /usr/bin/clear
+  echo
+  curl https://niton.me/blob/draw.txt
   echo -e "This script will be installing:\n   [${LIGHT_GREEN}+${RESET_ALL}] Apache HTTP Server\n   [${LIGHT_GREEN}+${RESET_ALL}] PHP: Hypertext Preprocessor\n   [${LIGHT_GREEN}+${RESET_ALL}] Database Management (RDBMS)";
   echo -e "\nThe configurations will be automated too.";
 
