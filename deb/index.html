@@ -2,7 +2,11 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>niton/debian</title>
+
+    <link rel="icon" type="image/png" sizes="32x32" href="https://niton.me/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://niton.me/img/favicon-16x16.png">
 
     <style media="screen">
       body {
@@ -15,16 +19,24 @@
       a, a:hover, a:active, a:visited {
         color: #0000FF;
       }
+      thead {
+        float: left;
+      }
     </style>
 
   </head>
   <body>
-
-    <p>
-      <a href="#" class="ignore-click" onclick="document.getElementById('a2phsb').focus();">Apache2+PHP Server.Build</a>:
-      <code id="a2phsb" contenteditable="true" onfocus="document.execCommand('selectAll',false,null);">sudo curl -s -o install https://niton.me/deb/server.build && sudo sh install</code>
-    </p>
-
+    <table>
+      <thead>
+        <th>
+          Debian one-liner scripts.
+        </th>
+      </thead>
+      <tr>
+        <td><a href="#" class="ignore-click" onclick="document.getElementById('a2phpsb').focus();">Apache2+PHP Server.Build</a>:</td>
+        <td><code id="a2phpsb" contenteditable="true" onfocus="document.execCommand('selectAll',false,null);">sudo curl -s -o install https://niton.me/deb/server.build && sudo sh install</code></td>
+      </tr>
+    </table>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" charset="utf-8"></script>
     <script>
