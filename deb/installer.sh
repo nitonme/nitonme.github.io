@@ -44,7 +44,7 @@ install_apache() {
     sudo mkdir -p /var/www/${DOMAIN_FOLDER} && echo -e "> Folder ${PURPLE}'/var/www/${DOMAIN_FOLDER}'${RESET_ALL} was created.";
     sleep 2
 
-sudo echo "
+sudo echo -e "
 Listen 80
 Listen 443
 
