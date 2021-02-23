@@ -1,0 +1,46 @@
+#!/bin/bash
+
+export COLOR_NC='\e[0m' # No Color
+export COLOR_WHITE='\e[1;37m'
+export COLOR_BLACK='\e[0;30m'
+export COLOR_BLUE='\e[0;34m'
+export COLOR_LIGHT_BLUE='\e[1;34m'
+export COLOR_GREEN='\e[0;32m'
+export COLOR_LIGHT_GREEN='\e[1;32m'
+export COLOR_CYAN='\e[0;36m'
+export COLOR_LIGHT_CYAN='\e[1;36m'
+export COLOR_RED='\e[0;31m'
+export COLOR_LIGHT_RED='\e[1;31m'
+export COLOR_PURPLE='\e[0;35m'
+export COLOR_LIGHT_PURPLE='\e[1;35m'
+export COLOR_BROWN='\e[0;33m'
+export COLOR_YELLOW='\e[1;33m'
+export COLOR_GRAY='\e[0;30m'
+export COLOR_LIGHT_GRAY='\e[0;37m'
+
+OLDCONF=$(dpkg -l|grep "^rc"|awk '{print $2}')
+
+/usr/bin/clear
+
+# Checking for root
+if [[ $EUID -ne 0 ]]; then
+   echo -e "${COLOR_RED}[!]${COLOR_LIGHT_GRAY} Root is required to run this application.${COLOR_NC}"
+   exit 1
+fi
+
+echo -e "${COLOR_LIGHT_GREEN}[+]${COLOR_LIGHT_GRAY} Fixing broken packages\n"
+sudo apt --fix-broken install -y
+echo -e "${COLOR_LIGHT_GREEN}done.${COLOR_LIGHT_GRAY}\n" && sleep 1
+
+echo -e "${COLOR_LIGHT_GREEN}[+]${COLOR_LIGHT_GRAY} Clearing retriving package files\n"
+sudo apt-get autoclean
+echo -e "${COLOR_LIGHT_GREEN}done.${COLOR_LIGHT_GRAY}\n" && sleep 1
+
+echo -e "${COLOR_LIGHT_GREEN}[+]${COLOR_LIGHT_GRAY} Clearing dependencies that are no longer required\n"
+sudo apt-get autoremove -y
+echo -e "${COLOR_LIGHT_GREEN}done.${COLOR_LIGHT_GRAY}\n" && sleep 1
+
+echo -e "${COLOR_LIGHT_GREEN}[+]${COLOR_LIGHT_GRAY} Clearing old config files...\n"
+sudo apt-get purge -y $OLDCONF
+
+echo -ne "${COLOR_LIGHT_GREEN}all done. goodbye :)${COLOR_LIGHT_GRAY}"
