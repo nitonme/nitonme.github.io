@@ -19,6 +19,9 @@ install_apache() {
     sudo apt-get install -y apache2 && echo -e "[ ${LIGHT_GREEN}OK${RESET_ALL} ]\n";
     sleep 2
 
+    ##  Stopping the Apache2 service
+    sudo service apache2 stop
+
     ##  Disabling the default configuration.
     echo "> Default configuration disabled." && sudo a2dissite 000-default.conf >/dev/null 2>&1
     sleep 2
@@ -62,6 +65,7 @@ Listen 443
     sleep 2
     sudo a2ensite ${DOMAIN_FOLDER}.conf >/dev/null 2>&1 && echo "> The new configuration enabled.";
     sleep 1
+    sudo service apache2 start
     echo -ne "> Reloading service Apache2" && sudo systemctl reload apache2 >/dev/null 2>&1 && echo -e " [ ${LIGHT_GREEN}OK${RESET_ALL} ]";
 
 }
@@ -103,7 +107,7 @@ if [[ $1 == "--install" ]]; then
         install_apache;
         install_php;
 
-        echo "All done.";
+        echo -e "\nAll done.";
   else
         echo "Well, OK bye.";
         exit 1;
