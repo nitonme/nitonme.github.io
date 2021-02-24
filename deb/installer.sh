@@ -5,10 +5,12 @@ export RESET_ALL='\e[0m'
 export PURPLE='\e[0;35m'
 export LIGHT_GREEN='\e[1;32m'
 
+export VERSION='1.6.0'
 
-##  Must be run as root
+
+##  Must be run with sudo.
 if [[ $EUID -ne 0 ]]; then
-    echo "This script must be run as root.";
+    echo "Run this script with sudo.";
     exit 1;
 fi
 
@@ -94,7 +96,7 @@ if [[ $1 == "--install" ]]; then
   /usr/bin/clear
   echo
   curl https://niton.me/deb/serverbuild.txt
-  echo -e "This script will be installing:\n   [${LIGHT_GREEN}+${RESET_ALL}] Apache HTTP Server\n   [${LIGHT_GREEN}+${RESET_ALL}] PHP: Hypertext Preprocessor";
+  echo -e "${PURPLE}Version ${VERSION}${RESET_ALL}\nThis script will be..\n   [${LIGHT_GREEN}+${RESET_ALL}] Installing Apache2\n   [${LIGHT_GREEN}+${RESET_ALL}] Installing lastest PHP";
   echo -e "\nThe configurations will be automated too.";
 
   read -p "Start auto install/config? (y/n) " YesNo
