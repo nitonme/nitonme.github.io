@@ -1,0 +1,59 @@
+<?php
+
+  $PHPVER = phpversion();
+  $PHPURL = $_SERVER['SERVER_NAME'];
+
+
+?>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>It Works!</title>
+
+    <style media="screen">
+      body {
+        font-family: Verdana, sans-serif;
+        padding: 0;
+        margin: 0;
+      }
+      a {
+        text-decoration: none;
+        font-weight: 600;
+        color: #292929;
+        background-color: lightgray;
+        padding: 1px;
+      }
+      a:hover {
+        background-color: #292929;
+        color: lightgray;
+      }
+      h1.title {
+        background-color: darkgray;
+        color: gray;
+        width: 100%;
+        padding:10px;
+        margin: 0;
+      }
+      h2 {
+        margin-bottom: 0;
+      }
+      .content {
+        padding: 10px;
+        max-width: 800px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="title">It Works!</h1>
+      <div class="content">
+        <h2>Welcome to the default web page</h2>
+        <br>This is the default welcome page used to test the correct operation of the Apache2 server after installation on Debian systems. If you can read this page, it means that the <a href="https://httpd.apache.org/">Apache HTTP server</a> installed at this site is working properly.
+        <p>Domain: <a href="http://<?= $PHPURL; ?>" target="_parent"><?= $PHPURL; ?></a><br>PHP v<?php echo phpversion(); ?></p>
+
+      </div>
+    </div>
+  </body>
+</html>
