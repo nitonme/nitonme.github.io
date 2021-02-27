@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: niton.me
+Token: deb6d0bc714c93acfe71ba26dc899f8477dd95e1d40f988c943dfa49db32cc4f
