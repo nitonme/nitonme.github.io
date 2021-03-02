@@ -30,7 +30,9 @@
     <meta name="theme-color" content="#ffffff">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+    
     <style media="screen">
       html, body {
         font-family: sans-serif;
@@ -40,6 +42,7 @@
         font-weight: bold;
         text-align: center;
         font-size: 75px;
+        padding-top: 35px;
       }
       .content {
         #margin: 25px;
@@ -76,19 +79,19 @@
 	  <div class="modal-dialog modal-dialog-centered">
 	    <div class="modal-content">
 	      <div class="modal-header">
-		<h5 class="modal-title">donate to my work</h5>
+		<h5 class="modal-title"><i class="bi bi-upc-scan"></i> donate to my work</h5>
 		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
 	      <div class="modal-body">
           <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-              <button class="nav-link active" id="bitcoin-tab" data-bs-toggle="tab" data-bs-target="#bitcoin" type="button" role="tab" aria-controls="bitcoin" aria-selected="true">Bitcoin</button>
+              <button class="nav-link active" id="bitcoin-tab" data-bs-toggle="tab" data-bs-target="#bitcoin" type="button" role="tab" aria-controls="bitcoin" aria-selected="true"><span class="iconify" data-icon="cryptocurrency-btc" data-inline="false"></span> Bitcoin</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="ethereum-tab" data-bs-toggle="tab" data-bs-target="#ethereum" type="button" role="tab" aria-controls="ethereum" aria-selected="false">Ethereum</button>
+              <button class="nav-link" id="ethereum-tab" data-bs-toggle="tab" data-bs-target="#ethereum" type="button" role="tab" aria-controls="ethereum" aria-selected="false"><span class="iconify" data-icon="cryptocurrency:eth" data-inline="false"></span> Ethereum</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="litecoin-tab" data-bs-toggle="tab" data-bs-target="#litecoin" type="button" role="tab" aria-controls="litecoin" aria-selected="false">Litecoin</button>
+              <button class="nav-link" id="litecoin-tab" data-bs-toggle="tab" data-bs-target="#litecoin" type="button" role="tab" aria-controls="litecoin" aria-selected="false"><span class="iconify" data-icon="cryptocurrency:ltc" data-inline="false"></span> Litecoin</button>
             </li>
           </ul>
           <div class="tab-content" id="myTabContent">
