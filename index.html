@@ -43,21 +43,17 @@
       }
       .content {
         #margin: 25px;
-	text-align: center; 
+	text-align: center;
       }
       .btn-donate {
         font-weight: bold;
         text-transform: lowercase;
-	border-radius: 20px;
-	padding: 5px 45px 5px 45px;
+	       border-radius: 20px;
+	        padding: 5px 45px 5px 45px;
       }
-      .navbar {
-        border-top: 1px solid #4a4a4a;
-	
-      }
-      a.navbar-brand {
-	      font: 15px/13px 'sans-serif';
-      }
+      .navbar { border-top: 1px solid #4a4a4a; }
+      .navbar-brand { font-size: 1rem; }
+
       a, a:hover, a:visited {
         color: #0000FF;
       }
@@ -67,10 +63,10 @@
     <div class="container">
       <h1 class="header">niton</h1>
       <div class="content">
-      	
+
       	<p>I'm just an ordinary internet nerd, aged <span class="age"></span> and lives in Sweden.
       	<br>I often craft things in HTML, CSS, Javascript, Bash, Python & PHP.</p>
-      
+
 	<button type="button" class="btn btn-donate btn-primary" data-bs-toggle="modal" data-bs-target="#donateModal">Donate to my work</button>
       </div>
 
@@ -84,28 +80,57 @@
 		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
 	      <div class="modal-body">
-		<p>
-		   Bitcoin: <a href="bitcoin:1NFrPLQiQDpFLyFc6kMQD2peWTp4hnVhYP">1NFrPLQiQDpFLyFc6kMQD2peWTp4hnVhYP</a><br>
-		   Ether: <a href="ethereum:0x80afad632Ee8C2c957A312A2c460891d0A65A5B4">0x80afad632Ee8C2c957A312A2c460891d0A65A5B4</a>
-		</p>
+          <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="bitcoin-tab" data-bs-toggle="tab" data-bs-target="#bitcoin" type="button" role="tab" aria-controls="bitcoin" aria-selected="true">Bitcoin</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="ethereum-tab" data-bs-toggle="tab" data-bs-target="#ethereum" type="button" role="tab" aria-controls="ethereum" aria-selected="false">Ethereum</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="litecoin-tab" data-bs-toggle="tab" data-bs-target="#litecoin" type="button" role="tab" aria-controls="litecoin" aria-selected="false">Litecoin</button>
+            </li>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane text-center fade show active" id="bitcoin" role="tabpanel" aria-labelledby="bitcoin-tab">
+              <!-- Bitcoin Donation -->
+              <img src="https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=bc1qnt45jwupacgp3z5rtjgs56mnswzpay0nmt965k" alt="btc address">
+              <br>How much BTC? Whatever you feel like!
+            </div>
+            <div class="tab-pane text-center fade" id="ethereum" role="tabpanel" aria-labelledby="ethereum-tab">
+              <!-- Ether Donation -->
+              <img src="https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=0x80afad632Ee8C2c957A312A2c460891d0A65A5B4" alt="eth address">
+              <br>How much ETH? Whatever you feel like!
+            </div>
+            <div class="tab-pane text-center fade" id="litecoin" role="tabpanel" aria-labelledby="litecoin-tab">
+              <!-- Litecoin Donation -->
+              <img src="https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=LUvUSyBGrfAuJzKk5bvadKUuzEFDcuMym6" alt="ltc address">
+              <br>How much LTC? Whatever you feel like!
+            </div>
+          </div>
+
 	      </div>
 	    </div>
 	  </div>
 	</div>
-      <nav class="navbar fixed-bottom navbar-light bg-light">
+      <nav class="navbar navbar-expand-lg fixed-bottom navbar-light bg-light">
         <div class="container">
-          <a class="navbar-brand" href="./index.html">
-            &copy; 2021
-          </a>
+          <a class="navbar-brand" href="/">niton.me</a>
+          <div class="" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#donateModal">donate</a>
+              </li>
+            </ul>
+          </div>
         </div>
       </nav>
     </div>
-	
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js"></script>	
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js"></script>
     <script src="./app.js" charset="utf-8"></script>
   </body>
 </html>
