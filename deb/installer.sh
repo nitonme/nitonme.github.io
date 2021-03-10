@@ -86,7 +86,7 @@ install_php() {
     echo -ne "\n  [${LIGHT_GREEN}+${RESET_ALL}] Installing PHP ... ";
 
     sleep 2
-    sudo apt-get install -y php php-mysql libapache2-mod-php >/dev/null 2>&1 && echo -e "[ ${LIGHT_GREEN}OK${RESET_ALL} ]";
+    sudo apt-get install -y php php-mysql libapache2-mod-php >/dev/null 2>&1 && echo -e "  [ ${LIGHT_GREEN}OK${RESET_ALL} ]";
 
     PHP_VERSION=$(php -v | grep ^PHP | cut -d' ' -f2)
 
@@ -99,7 +99,7 @@ install_php() {
 install_certbot() {
 
     echo -ne "\n  [${LIGHT_GREEN}+${RESET_ALL}] Installing snapd... ";
-    sudo apt install -y snapd >/dev/null 2>&1 && echo -e " [ ${LIGHT_GREEN}OK${RESET_ALL} ]";
+    sudo apt install -y snapd >/dev/null 2>&1 && echo -e "  [ ${LIGHT_GREEN}OK${RESET_ALL} ]";
     sleep 2
     ## Ensure version of snapd is up to date.
     sudo snap install core >/dev/null 2>&1 && sudo snap refresh core >/dev/null 2>&1
