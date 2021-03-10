@@ -19,7 +19,7 @@ fi
 install_apache() {
 
     ##  Installing Apache2
-    echo -ne "\n [${LIGHT_GREEN}+${RESET_ALL}] Installing Apache HTTP Server... ";
+    echo -ne "\n  [${LIGHT_GREEN}+${RESET_ALL}] Installing Apache HTTP Server... ";
     sudo apt-get install -y apache2 >/dev/null 2>&1 && echo -e "[ ${LIGHT_GREEN}OK${RESET_ALL} ]\n";
     sleep 2
 
@@ -32,7 +32,6 @@ install_apache() {
 
     ##  Deleting the default configuration.
     sudo rm /etc/apache2/sites-available/000-default.conf && echo "  Default configuration deleted."
-    sudo rm /etc/apache2/sites-enabled/000-default.conf
     sleep 2
 
     echo -ne "  Domain Name -> (eg. domain.com): ${LIGHT_GREEN}";
@@ -77,28 +76,28 @@ sudo echo -e "
     sleep 1
     sudo service apache2 start >/dev/null 2>&1
 
-    echo -ne "  Reloading service Apache2" && sudo systemctl reload apache2 >/dev/null 2>&1 && echo -e " [  ${LIGHT_GREEN}OK${RESET_ALL}  ]";
+    echo -ne "  Reloading service Apache2" && sudo systemctl reload apache2 >/dev/null 2>&1 && echo -e " [ ${LIGHT_GREEN}OK${RESET_ALL} ]";
 
 
 
 }
 install_php() {
 
-    echo -e "\n> Adding latest PHP thrid-party PPA." && wget -q https://packages.sury.org/php/apt.gpg -O- | sudo apt-key add - >/dev/null 2>&1
+    echo -e "\n  Adding latest PHP thrid-party PPA." && wget -q https://packages.sury.org/php/apt.gpg -O- | sudo apt-key add - >/dev/null 2>&1
     sudo echo "deb https://packages.sury.org/php/ stretch main" | tee /etc/apt/sources.list.d/php.list >/dev/null 2>&1
     sleep 2
-    echo -e "  System update." && sudo apt-get update -y >/dev/null 2>&1
+    echo -e "  System updating.." && sudo apt-get update -y >/dev/null 2>&1
 
     sleep 1
-    echo -e "\n[${LIGHT_GREEN}+${RESET_ALL}] Installing PHP ...\n";
+    echo -ne "\n  [${LIGHT_GREEN}+${RESET_ALL}] Installing PHP ...\n";
 
     sleep 2
-    sudo apt-get install -y php php-mysql libapache2-mod-php && echo -e "[  ${LIGHT_GREEN}OK${RESET_ALL}  ]";
+    sudo apt-get install -y php php-mysql libapache2-mod-php >/dev/null 2>&1 && echo -e "[ ${LIGHT_GREEN}OK${RESET_ALL} ]";
 
     PHP_VERSION=$(php -v | grep ^PHP | cut -d' ' -f2)
 
     sleep 1
-    echo -e "\n  PHP ${PHP_VERSION} installed. \n";
+    echo -e "\n PHP ${PHP_VERSION} installed.";
     sleep 2
 }
 install_certbot() {
@@ -114,7 +113,7 @@ install_certbot() {
     sudo ln -s /snap/bin/certbot /usr/bin/certbot
 
     ##  Give domain tls/ssl cerificate.
-    certbot certonly --webroot -w /var/www/${DOMAIN_FOLDER} -d www.${domainName} -d ${domainName}
+    sudo certbot --apache -d www.${domainName} -d ${domainName}
 }
 
 
@@ -137,7 +136,7 @@ if [[ $1 == "--install" ]]; then
         install_php;
         install_certbot;
 
-        echo "  Test it out -> http://${domainName}/"
+        echo "  Test it out -> https://${domainName}/"
         echo -e "\n  All done.";
   else
         echo "  Well OK, bye.";
