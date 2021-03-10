@@ -70,9 +70,6 @@ sudo echo -e "
     sleep 1
     sudo a2ensite ${DOMAIN_FOLDER}.conf >/dev/null 2>&1 && echo -e " and enabled.";
 
-    sleep 1
-    sudo service apache2 start >/dev/null 2>&1
-
     echo -ne "  Reloading service Apache2" && sudo systemctl reload apache2 >/dev/null 2>&1 && echo -e " [ ${LIGHT_GREEN}OK${RESET_ALL} ]";
 
 
@@ -80,7 +77,7 @@ sudo echo -e "
 }
 install_php() {
 
-    echo -e "\n  Adding latest PHP thrid-party PPA." && wget -q https://packages.sury.org/php/apt.gpg -O- | sudo apt-key add - >/dev/null 2>&1
+    echo -e "\n  Adding latest PHP third-party PPA." && wget -q https://packages.sury.org/php/apt.gpg -O- | sudo apt-key add - >/dev/null 2>&1
     sudo echo "deb https://packages.sury.org/php/ stretch main" | tee /etc/apt/sources.list.d/php.list >/dev/null 2>&1
     sleep 2
     echo -e "  System updating.." && sudo apt-get update -y >/dev/null 2>&1
@@ -94,17 +91,20 @@ install_php() {
     PHP_VERSION=$(php -v | grep ^PHP | cut -d' ' -f2)
 
     sleep 1
-    echo -e "\n PHP ${PHP_VERSION} installed.";
+    echo -e "\n  PHP ${PHP_VERSION} installed.";
     sleep 2
+
+    sudo a2enmod php
+
 }
 install_certbot() {
 
-    echo -ne "\n [${LIGHT_GREEN}+${RESET_ALL}] Installing snapd... ";
+    echo -ne "\n  [${LIGHT_GREEN}+${RESET_ALL}] Installing snapd... ";
     sudo apt install -y snapd >/dev/null 2>&1 && echo -e "[ ${LIGHT_GREEN}OK${RESET_ALL} ]\n";
     sleep 2
-    sudo snap install core; sudo snap refresh core
+    sudo snap install core; sudo snap refresh core >/dev/null 2>&1
 
-    echo -ne "\n [${LIGHT_GREEN}+${RESET_ALL}] Installing Certbot... ";
+    echo -ne "\n  [${LIGHT_GREEN}+${RESET_ALL}] Installing Certbot... ";
     sudo snap install --classic certbot >/dev/null 2>&1 && echo -e "[ ${LIGHT_GREEN}OK${RESET_ALL} ]\n";
 
     sudo ln -s /snap/bin/certbot /usr/bin/certbot
@@ -126,8 +126,8 @@ if [[ $1 == "--install" ]]; then
 
   if [[ $YesNo =~ ^[Yy]$ ]]; then
 
-        echo -ne "\n  System update." && sudo apt-get update -y >/dev/null 2>&1 && echo -e " [ ${LIGHT_GREEN}DONE${RESET_ALL} ]";
-        echo -ne "  System upgrade." && sudo apt-get upgrade -y >/dev/null 2>&1 && echo -e "[ ${LIGHT_GREEN}DONE${RESET_ALL} ]";
+        echo -ne "\n  System update. " && sudo apt-get update -y >/dev/null 2>&1 && echo -e " [ ${LIGHT_GREEN}DONE${RESET_ALL} ]";
+        echo -ne "  System upgrade. " && sudo apt-get upgrade -y >/dev/null 2>&1 && echo -e "[ ${LIGHT_GREEN}DONE${RESET_ALL} ]";
 
         install_apache;
         install_php;
