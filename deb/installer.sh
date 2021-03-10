@@ -21,10 +21,7 @@ install_apache() {
     ##  Installing Apache2
     echo -ne "\n  [${LIGHT_GREEN}+${RESET_ALL}] Installing Apache HTTP Server... ";
     sudo apt-get install -y apache2 >/dev/null 2>&1 && echo -e "[ ${LIGHT_GREEN}OK${RESET_ALL} ]\n";
-    sleep 2
-
-    ##  Stopping the Apache2 service
-    sudo service apache2 stop
+    sleep 3
 
     ##  Disabling the default configuration.
     sudo a2dissite 000-default.conf >/dev/null 2>&1 && echo "  Default configuration disabled."
@@ -69,7 +66,7 @@ sudo echo -e "
 
 </VirtualHost>
 
-" > /etc/apache2/sites-available/${DOMAIN_FOLDER}.conf && echo -ne "  Config has been written";
+" >> /etc/apache2/sites-available/${DOMAIN_FOLDER}.conf && echo -ne "  Config has been written";
     sleep 1
     sudo a2ensite ${DOMAIN_FOLDER}.conf >/dev/null 2>&1 && echo -e " and enabled.";
 
@@ -89,7 +86,7 @@ install_php() {
     echo -e "  System updating.." && sudo apt-get update -y >/dev/null 2>&1
 
     sleep 1
-    echo -ne "\n  [${LIGHT_GREEN}+${RESET_ALL}] Installing PHP ...\n";
+    echo -ne "\n  [${LIGHT_GREEN}+${RESET_ALL}] Installing PHP ...";
 
     sleep 2
     sudo apt-get install -y php php-mysql libapache2-mod-php >/dev/null 2>&1 && echo -e "[ ${LIGHT_GREEN}OK${RESET_ALL} ]";
