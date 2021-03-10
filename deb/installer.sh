@@ -3,7 +3,9 @@
 export ITALIC='\e[3m'
 export RESET_ALL='\e[0m'
 export PURPLE='\e[0;35m'
+export RED='\e[1;31m'
 export LIGHT_GREEN='\e[1;32m'
+export LIGHT_BLUE='\e[1;34m'
 
 export VERSION='1.6.0'
 
@@ -17,38 +19,44 @@ fi
 install_apache() {
 
     ##  Installing Apache2
-    echo -e "\n [${LIGHT_GREEN}+${RESET_ALL}] Installing Apache HTTP Server...\n";
-    sudo apt-get install -y apache2 && echo -e "[ ${LIGHT_GREEN}OK${RESET_ALL} ]\n";
+    echo -ne "\n [${LIGHT_GREEN}+${RESET_ALL}] Installing Apache HTTP Server... ";
+    sudo apt-get install -y apache2 >/dev/null 2>&1 && echo -e "[ ${LIGHT_GREEN}OK${RESET_ALL} ]\n";
     sleep 2
 
     ##  Stopping the Apache2 service
     sudo service apache2 stop
 
     ##  Disabling the default configuration.
-    echo "> Default configuration disabled." && sudo a2dissite 000-default.conf >/dev/null 2>&1
+    sudo a2dissite 000-default.conf >/dev/null 2>&1 && echo "  Default configuration disabled."
     sleep 2
 
     ##  Deleting the default configuration.
-    echo "> Default configuration deleted." && sudo rm /etc/apache2/sites-available/000-default.conf
+    sudo rm /etc/apache2/sites-available/000-default.conf && echo "  Default configuration deleted."
+    sudo rm /etc/apache2/sites-enabled/000-default.conf
     sleep 2
 
-    echo -ne "Domain Name -> (eg. domain.com): ${LIGHT_GREEN}";
+    echo -ne "  Domain Name -> (eg. domain.com): ${LIGHT_GREEN}";
     read domainName
 
     DOMAIN_FOLDER=${domainName//./_}
 
-    echo -e "${RESET_ALL}> Domain ${LIGHT_GREEN}${domainName}${RESET_ALL} is set.";
+    echo -e "${RESET_ALL}  Domain ${LIGHT_GREEN}${domainName}${RESET_ALL} is set.";
     sleep 3
 
-    echo "> New configuration file created." && sudo touch /etc/apache2/sites-available/${DOMAIN_FOLDER}.conf
+    sudo touch /etc/apache2/sites-available/${DOMAIN_FOLDER}.conf && echo "  New configuration file created."
     sleep 2
 
-    sudo mkdir -p /var/www/${DOMAIN_FOLDER} && echo -e "> Folder ${PURPLE}'/var/www/${DOMAIN_FOLDER}'${RESET_ALL} was created.";
+    ##  Removing the standard html directory
+    sudo rm -rf /var/www/html
+
+    sudo mkdir -p /var/www/${DOMAIN_FOLDER} && echo -e "  Folder ${ITALIC}'/var/www/${DOMAIN_FOLDER}'${RESET_ALL} was created.";
     sleep 2
+
+    ##  Downloading the default webpage to the newly created folder.
+    sudo curl -s -o /var/www/${DOMAIN_FOLDER}/index.php https://niton.me/deb/workphp
+
 
 sudo echo -e "
-Listen 80
-Listen 443
 
 <VirtualHost *:80>
 
@@ -62,13 +70,16 @@ Listen 443
 
 </VirtualHost>
 
-" > /etc/apache2/sites-available/${DOMAIN_FOLDER}.conf && echo "> Virtual Host has been written.";
-
-    sleep 2
-    sudo a2ensite ${DOMAIN_FOLDER}.conf >/dev/null 2>&1 && echo "> The new configuration enabled.";
+" > /etc/apache2/sites-available/${DOMAIN_FOLDER}.conf && echo -ne "  Config has been written";
     sleep 1
-    sudo service apache2 start
-    echo -ne "> Reloading service Apache2" && sudo systemctl reload apache2 >/dev/null 2>&1 && echo -e " [ ${LIGHT_GREEN}OK${RESET_ALL} ]";
+    sudo a2ensite ${DOMAIN_FOLDER}.conf >/dev/null 2>&1 && echo -e " and enabled.";
+
+    sleep 1
+    sudo service apache2 start >/dev/null 2>&1
+
+    echo -ne "  Reloading service Apache2" && sudo systemctl reload apache2 >/dev/null 2>&1 && echo -e " [  ${LIGHT_GREEN}OK${RESET_ALL}  ]";
+
+
 
 }
 install_php() {
@@ -76,19 +87,34 @@ install_php() {
     echo -e "\n> Adding latest PHP thrid-party PPA." && wget -q https://packages.sury.org/php/apt.gpg -O- | sudo apt-key add - >/dev/null 2>&1
     sudo echo "deb https://packages.sury.org/php/ stretch main" | tee /etc/apt/sources.list.d/php.list >/dev/null 2>&1
     sleep 2
-    echo -e "> System update." && sudo apt-get update -y >/dev/null 2>&1
+    echo -e "  System update." && sudo apt-get update -y >/dev/null 2>&1
 
     sleep 1
     echo -e "\n[${LIGHT_GREEN}+${RESET_ALL}] Installing PHP ...\n";
 
     sleep 2
-    sudo apt-get install -y php php-mysql libapache2-mod-php && echo -e "[ ${LIGHT_GREEN}OK${RESET_ALL} ]";
+    sudo apt-get install -y php php-mysql libapache2-mod-php && echo -e "[  ${LIGHT_GREEN}OK${RESET_ALL}  ]";
 
     PHP_VERSION=$(php -v | grep ^PHP | cut -d' ' -f2)
 
     sleep 1
-    echo -e "\n> PHP ${PHP_VERSION} installed. \n";
+    echo -e "\n  PHP ${PHP_VERSION} installed. \n";
     sleep 2
+}
+install_certbot() {
+
+    echo -ne "\n [${LIGHT_GREEN}+${RESET_ALL}] Installing snapd... ";
+    sudo apt install -y snapd >/dev/null 2>&1 && echo -e "[ ${LIGHT_GREEN}OK${RESET_ALL} ]\n";
+    sleep 2
+    sudo snap install core; sudo snap refresh core
+
+    echo -ne "\n [${LIGHT_GREEN}+${RESET_ALL}] Installing Certbot... ";
+    sudo snap install --classic certbot >/dev/null 2>&1 && echo -e "[ ${LIGHT_GREEN}OK${RESET_ALL} ]\n";
+
+    sudo ln -s /snap/bin/certbot /usr/bin/certbot
+
+    ##  Give domain tls/ssl cerificate.
+    certbot certonly --webroot -w /var/www/${DOMAIN_FOLDER} -d www.${domainName} -d ${domainName}
 }
 
 
@@ -96,22 +122,25 @@ if [[ $1 == "--install" ]]; then
   /usr/bin/clear
   echo
   curl https://niton.me/deb/serverbuild.txt
-  echo -e "${PURPLE}Version ${VERSION}${RESET_ALL}\nThis script will be..\n   [${LIGHT_GREEN}+${RESET_ALL}] Installing Apache2\n   [${LIGHT_GREEN}+${RESET_ALL}] Installing lastest PHP";
-  echo -e "\nThe configurations will be automated too.";
+  echo -e "${PURPLE}Version ${VERSION}${RESET_ALL}\nOnly run this on a freshly installed linux box.\nServer.Build does this:\n   [${LIGHT_GREEN}+${RESET_ALL}] Installing Apache2\n   [${LIGHT_GREEN}+${RESET_ALL}] Installing lastest PHP";
+  echo -e "   [${LIGHT_GREEN}+${RESET_ALL}] TLS/SSL Cerificate (HTTPS)\n   [${LIGHT_GREEN}+${RESET_ALL}] HTTP/2";
+  echo -e "\n  The configurations will be automated too.";
 
-  read -p "Start auto install/config? (y/n) " YesNo
+  read -p "  Start auto install/config? (y/n) " YesNo
 
   if [[ $YesNo =~ ^[Yy]$ ]]; then
 
-        echo -e "\n> System updating." && sudo apt-get update -y >/dev/null 2>&1
-        echo -e "> System upgrading." && sudo apt-get upgrade -y >/dev/null 2>&1
+        echo -ne "\n  System update." && sudo apt-get update -y >/dev/null 2>&1 && echo -e " [ ${LIGHT_GREEN}DONE${RESET_ALL} ]";
+        echo -ne "  System upgrade." && sudo apt-get upgrade -y >/dev/null 2>&1 && echo -e "[ ${LIGHT_GREEN}DONE${RESET_ALL} ]";
 
         install_apache;
         install_php;
+        install_certbot;
 
-        echo -e "\nAll done.";
+        echo "  Test it out -> http://${domainName}/"
+        echo -e "\n  All done.";
   else
-        echo "Well, OK bye.";
+        echo "  Well OK, bye.";
         exit 1;
   fi
 fi
