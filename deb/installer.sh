@@ -83,7 +83,7 @@ install_php() {
     echo -e "  System updating.." && sudo apt-get update -y >/dev/null 2>&1
 
     sleep 1
-    echo -ne "\n  [${LIGHT_GREEN}+${RESET_ALL}] Installing PHP ...";
+    echo -ne "\n  [${LIGHT_GREEN}+${RESET_ALL}] Installing PHP ... ";
 
     sleep 2
     sudo apt-get install -y php php-mysql libapache2-mod-php >/dev/null 2>&1 && echo -e "[ ${LIGHT_GREEN}OK${RESET_ALL} ]";
@@ -94,17 +94,17 @@ install_php() {
     echo -e "\n  PHP ${PHP_VERSION} installed.";
     sleep 2
 
-    sudo a2enmod php
 
 }
 install_certbot() {
 
     echo -ne "\n  [${LIGHT_GREEN}+${RESET_ALL}] Installing snapd... ";
-    sudo apt install -y snapd >/dev/null 2>&1 && echo -e "[ ${LIGHT_GREEN}OK${RESET_ALL} ]\n";
+    sudo apt install -y snapd >/dev/null 2>&1 && echo -e " [ ${LIGHT_GREEN}OK${RESET_ALL} ]";
     sleep 2
-    sudo snap install core; sudo snap refresh core >/dev/null 2>&1
+    ## Ensure version of snapd is up to date.
+    sudo snap install core >/dev/null 2>&1 && sudo snap refresh core >/dev/null 2>&1
 
-    echo -ne "\n  [${LIGHT_GREEN}+${RESET_ALL}] Installing Certbot... ";
+    echo -ne "  [${LIGHT_GREEN}+${RESET_ALL}] Installing Certbot... ";
     sudo snap install --classic certbot >/dev/null 2>&1 && echo -e "[ ${LIGHT_GREEN}OK${RESET_ALL} ]\n";
 
     sudo ln -s /snap/bin/certbot /usr/bin/certbot
