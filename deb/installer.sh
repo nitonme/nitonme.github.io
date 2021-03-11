@@ -83,7 +83,7 @@ install_php() {
     echo -e "  System updating.." && sudo apt-get update -y >/dev/null 2>&1
 
     sleep 1
-    echo -ne "\n  [${LIGHT_GREEN}+${RESET_ALL}] Installing PHP ... ";
+    echo -ne "\n  [${LIGHT_GREEN}+${RESET_ALL}] Installing PHP ...  ";
 
     sleep 2
     sudo apt-get install -y php php-mysql libapache2-mod-php >/dev/null 2>&1 && echo -e "  [ ${LIGHT_GREEN}OK${RESET_ALL} ]";
@@ -109,7 +109,7 @@ install_certbot() {
 
     sudo ln -s /snap/bin/certbot /usr/bin/certbot
 
-    ##  Give domain tls/ssl cerificate.
+    ##  Give domain ssl cerificate.
     sudo certbot --apache -d www.${domainName} -d ${domainName}
 }
 
